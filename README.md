@@ -1,1 +1,1 @@
-# vue-projects
+# vue3-firebase
