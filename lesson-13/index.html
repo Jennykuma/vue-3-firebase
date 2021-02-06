@@ -1,0 +1,51 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Vue</title>
+    <script src="https://unpkg.com/vue@next"></script>
+    <style>
+      .box {
+        padding: 100px 0;
+        width: 400px;
+        text-align: center;
+        background: #ddd;
+        margin: 20px;
+        display: inline-block;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Hello, Vue :)</h1>
+
+    <div id="app">
+      <!-- Attribute Binding -->
+      <!-- v-bind:attribute for when we want attributes to be dynamic -->
+      <!-- v-bind: for short is just a colon in front ex: :href -->
+      <a v-bind:href="bearUrl" target-> Meet the bears </a>
+
+      <div v-if="showBears">
+        <ul> <!-- v-for is used iterating through data -->
+          <li v-for="bear in bears">
+            <img :src="bear.img" :alt="bears.title">
+            <h3>{{ bear.title }}</h3>
+            <p>{{ bear.company }}</p>
+          </li>
+        </ul>
+      </div>
+
+      <button @click="toggleShowBears">
+        <span v-if="showBears">Hide Bears</span>
+        <span v-else>Show Bears</span>
+      </button>
+
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+      arr = [1,2,3]
+      arr.filter((item, index) => arr.indexOf(item) != index)
+      console.log(arr)
+    </script>
+  </body>
+</html>
