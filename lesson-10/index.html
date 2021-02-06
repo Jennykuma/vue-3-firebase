@@ -1,0 +1,33 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Vue</title>
+    <script src="https://unpkg.com/vue@next"></script>
+  </head>
+  <body>
+    <h1>Hello, Vue :)</h1>
+
+    <div id="app">
+      <!-- v-if evaluates everything whatever is in the double quotes ex: dynamic value -->
+      <!-- evaluates true -> show completely -->
+      <!-- evaluates false -> don't show at all -->
+      <div v-if="showBears">
+        <p>{{ title }} - {{ creator }} - {{ age }}</p>
+      </div>
+
+      <button @click="toggleShowBears">
+        <!-- v-else triggers if the v-if above is false -->
+        <span v-if="showBears">Hide Bears</span>
+        <span v-else>Show Bears</span>
+      </button>
+
+      <!-- v-show evaluates true -> display: block -->
+      <!-- v-show evaluates false -> display: none-->
+      <!-- Best used on things that will show/hide a lot -->
+      <div v-show="showBears">current showing bears</div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
