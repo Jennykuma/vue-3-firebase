@@ -1,0 +1,25 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Vue</title>
+    <script src="https://unpkg.com/vue@next"></script>
+  </head>
+  <body>
+    <h1>Hello, Vue :)</h1>
+
+    <div id="app">
+      <p>{{ title }} - {{ creator }} - {{ age }}</p>
+
+      <!-- v-on reacts to different types of events -->
+      <!-- v for value, click is the event -->
+      <button v-on:click="age++"> Increase age </button>
+      <button v-on:click="age--"> Decrease age </button>
+
+      <!-- v-on:click in short: @click -->
+      <div @click="changeTitle('Bear in relaxed mood')"> Change to English </div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
