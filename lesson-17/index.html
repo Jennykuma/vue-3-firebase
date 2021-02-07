@@ -1,0 +1,62 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Vue</title>
+    <script src="https://unpkg.com/vue@next"></script>
+    <style>
+      body {
+        background: #eee;
+        max-width: 960px;
+        margin: 20px auto;
+      }
+      p, h3, ul {
+        margin: 0;
+        padding: 0;
+      }
+      li {
+        list-style-type: none;
+        background: #fff;
+        margin: 20px auto;
+        padding: 10px 20px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      li.fave {
+        background: #ff9ed2;
+        color: white;
+      }
+      img {
+        width: 150px;
+        height: 150px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Hello, Vue :)</h1>
+
+    <div id="app">
+      <!--<a :href="bearUrl" target="_blank"> Meet the bears </a>-->
+
+      <div v-if="showBears">
+        <ul>
+          <li v-for="bear in filteredBears" :class="{ fave: bear.isFave }" @click="toggleFave(bear)">
+            <img :src="bear.img" :alt="bears.title">
+            <h3>{{ bear.title }}</h3>
+            <p>{{ bear.company }}</p>
+          </li>
+        </ul>
+      </div>
+
+      <button @click="toggleShowBears">
+        <span v-if="showBears">Hide Bears</span>
+        <span v-else>Show Bears</span>
+      </button>
+
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
