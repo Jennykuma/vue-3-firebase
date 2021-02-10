@@ -1,5 +1,8 @@
 <template>
-  <div class="backdrop" @click="closeModal">
+  <!-- To add an event modifier, just add a '.' at the end of the event -->
+  <!-- Ex: @click.right (right click) or @click.shift (when shift is held down too) -->
+  <!-- @click.self (when we click on the element itself, nothing else like the modal) -->
+  <div class="backdrop" @click.self="closeModal">
     <div class="modal" :class="{ sale: theme === 'sale' }">
       <h1>{{ header }}</h1>
       <p>{{ text }}</p>

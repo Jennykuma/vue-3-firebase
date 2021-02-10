@@ -2,7 +2,6 @@
   <h1>{{ title }}</h1>
   <p>Welcome...</p>
   <div v-if="showModal">
-    <!-- When it listens to the close event, it will call toggleModal -->
     <Modal :header="header" :text="text" theme="sale" @close="toggleModal" />
   </div>
   <button @click="toggleModal">open modal</button>
