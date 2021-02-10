@@ -1,11 +1,19 @@
 <template>
   <div class="backdrop">
     <div class="modal">
-      <h1>Modal Title</h1>
-      <p>modal content</p>
+      <h1>{{ header }}</h1>
+      <p>{{ text }}</p>
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  // Things that get sent in from other components will be a dynamic prop value
+  // Call them in the props attribute
+  props: ['header', 'text']
+}
+</script>
 
 <style scoped>
   .modal {
