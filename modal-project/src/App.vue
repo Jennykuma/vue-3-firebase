@@ -1,7 +1,11 @@
 <template>
   <h1>{{ title }}</h1>
-  <!-- Add : to Data Bind to data below -->
-  <Modal :header="header" :text="text" theme="sale"/>
+  <p>Welcome...</p>
+  <div v-if="showModal">
+    <!-- When it listens to the close event, it will call toggleModal -->
+    <Modal :header="header" :text="text" theme="sale" @close="toggleModal" />
+  </div>
+  <button @click="toggleModal">open modal</button>
 </template>
 
 <script>
@@ -14,7 +18,13 @@ export default {
     return {
       title: 'My First Vue App :)',
       header: 'Sign up for the Giveaway!',
-      text: 'Grab your ninja swag for half price!'
+      text: 'Grab your ninja swag for half price!',
+      showModal: false
+    }
+  },
+  methods: {
+    toggleModal() {
+      this.showModal = !this.showModal
     }
   }
 }
