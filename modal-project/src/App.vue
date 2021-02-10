@@ -3,6 +3,13 @@
   <p>Welcome...</p>
   <div v-if="showModal">
     <Modal theme="sale" @close="toggleModal">
+      <!-- Named Slots -->
+      <!-- This can be declared anywhere, just make sure to give it a name 'v-slot:links' -->
+      <template v-slot:links>
+        <a href="#">sign up now</a>
+        <a href="#">more info</a>
+      </template>
+
       <h1>Ninja Giveaway!</h1>
       <p>Grab your ninja swab for half price!</p>
     </Modal>
