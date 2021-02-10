@@ -1,7 +1,7 @@
 <template>
   <h1>{{ title }}</h1>
   <!-- Add : to Data Bind to data below -->
-  <Modal :header="header" text="text" />
+  <Modal :header="header" :text="text" theme="sale"/>
 </template>
 
 <script>
