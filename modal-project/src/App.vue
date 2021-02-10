@@ -3,8 +3,6 @@
   <p>Welcome...</p>
   <div v-if="showModal">
     <Modal theme="sale" @close="toggleModal">
-      <!-- Named Slots -->
-      <!-- This can be declared anywhere, just make sure to give it a name 'v-slot:links' -->
       <template v-slot:links>
         <a href="#">sign up now</a>
         <a href="#">more info</a>
@@ -14,7 +12,14 @@
       <p>Grab your ninja swab for half price!</p>
     </Modal>
   </div>
-  <button @click="toggleModal">open modal</button>
+
+  <div v-if="showModalTwo">
+    <Modal @close="toggleModalTwo">
+      <h1>This is modal two!</h1>
+    </Modal>
+  </div>
+  <button @click="toggleModal">open modal 1</button>
+  <button @click="toggleModalTwo">open modal 2</button>
 </template>
 
 <script>
@@ -28,12 +33,16 @@ export default {
       title: 'My First Vue App :)',
       header: 'Sign up for the Giveaway!',
       text: 'Grab your ninja swag for half price!',
-      showModal: false
+      showModal: false,
+      showModalTwo: false
     }
   },
   methods: {
     toggleModal() {
       this.showModal = !this.showModal
+    },
+    toggleModalTwo() {
+      this.showModalTwo = !this.showModalTwo
     }
   }
 }
