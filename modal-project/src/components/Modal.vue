@@ -1,23 +1,20 @@
 <template>
-  <!-- To add an event modifier, just add a '.' at the end of the event -->
-  <!-- Ex: @click.right (right click) or @click.shift (when shift is held down too) -->
-  <!-- @click.self (when we click on the element itself, nothing else like the modal) -->
   <div class="backdrop" @click.self="closeModal">
     <div class="modal" :class="{ sale: theme === 'sale' }">
-      <h1>{{ header }}</h1>
-      <p>{{ text }}</p>
+      <!-- Slots are useful for passing for custom templates into components, which we don't do with props -->
+      <!-- Props are for simple strings/booleans -->
+      <!-- So whatever we put inside the template (other component), it will put that where the splot is registered inside the component -->
+      <slot></slot>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['header', 'text', 'theme'],
+  props: ['header'],
   methods: {
-    // A custom event can be fired from a component
-    // and then it an be listened to from the parent component
     closeModal() {
-      this.$emit('close') // the name of the event we want to emit
+      this.$emit('close')
     }
   }
 }
