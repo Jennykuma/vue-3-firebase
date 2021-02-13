@@ -17,22 +17,19 @@
       <option value="designer">Web Designer</option>
     </select>
 
-    <div class="terms">
-      <input type="checkbox" v-model="terms" required>
-      <label>Accept terms and conditions</label>
+    <label>Skills:</label>
+    <input type="text" v-model="tempSkill" @keyup.alt="addSkill">
+
+    <!-- Key is used to keep track of the different elements in the list -->
+    <!-- We should always have a key property and that should be unique for each skill -->
+    <!-- The skill itself is unique, so we bind it -->
+    <div v-for="skill in skills" :key="skill" class="pill">
+      {{ skill }}
     </div>
 
-    <div>
-      <input type="checkbox" value="Jenny" v-model="names">
-      <label>Jenny</label>
-    </div>
-        <div>
-      <input type="checkbox" value="Rilakkuma" v-model="names">
-      <label>Rilakkuma</label>
-    </div>
-        <div>
-      <input type="checkbox" value="Korilakkuma" v-model="names">
-      <label>Korilakkuma</label>
+    <div class="terms">
+      <input type="checkbox" v-model="terms" required> <!-- v-model can be used with checkboxes too! -->
+      <label>Accept terms and conditions</label>
     </div>
   </form>
 
@@ -40,7 +37,6 @@
   <p>Password: {{ password }}</p>
   <p>Role: {{ role }}</p>
   <p>Terms accepted: {{ terms }}</p>
-  <p>Names: {{ names }}</p>
 </template>
 
 <script>
@@ -51,7 +47,18 @@ export default {
       password: '',
       role: 'designer', // The inital value would be designer instead of blank
       terms: false,
-      names: []
+      tempSkill: '',
+      skills: []
+    }
+  },
+  methods: {
+    addSkill(e) {
+      if (e.key === ',' && this.tempSkill) {
+        if (!this.skills.includes(this.tempSkill)) {
+          this.skills.push(this.tempSkill)
+        }
+        this.tempSkill = ''
+      }
     }
   }
 }
