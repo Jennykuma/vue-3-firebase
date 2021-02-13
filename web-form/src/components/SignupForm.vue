@@ -1,10 +1,5 @@
 <template>
   <form>
-    <!-- Two way data binding - Values are bound 2-ways between the template input and the component data itself -->
-    <!-- If the value updates from user input, we bind that update to the component data -->
-    <!-- If the component data updates, we bind that update to the user input -->
-
-    <!-- v-model is used to track the whatever is being typed in the input and sets it equal to whatever data (ex: email) -->
     <label>Email:</label>
     <input type="email" required v-model="email">
 
@@ -12,23 +7,20 @@
     <input type="password" required v-model="password">
 
     <label>Role:</label>
-    <select v-model="role"> <!-- v-model can be used with select fields too! -->
+    <select v-model="role">
       <option value="developer">Web Developer</option>
       <option value="designer">Web Designer</option>
     </select>
 
     <label>Skills:</label>
     <input type="text" v-model="tempSkill" @keyup.alt="addSkill">
-
-    <!-- Key is used to keep track of the different elements in the list -->
-    <!-- We should always have a key property and that should be unique for each skill -->
-    <!-- The skill itself is unique, so we bind it -->
     <div v-for="skill in skills" :key="skill" class="pill">
-      {{ skill }}
+      <!-- We pass in the skill we want to delete -->
+      <span @click="deleteSkill(skill)" :skill="skill">{{ skill }}</span>
     </div>
 
     <div class="terms">
-      <input type="checkbox" v-model="terms" required> <!-- v-model can be used with checkboxes too! -->
+      <input type="checkbox" v-model="terms" required>
       <label>Accept terms and conditions</label>
     </div>
   </form>
@@ -45,7 +37,7 @@ export default {
     return {
       email: '',
       password: '',
-      role: 'designer', // The inital value would be designer instead of blank
+      role: 'designer',
       terms: false,
       tempSkill: '',
       skills: []
@@ -59,6 +51,11 @@ export default {
         }
         this.tempSkill = ''
       }
+    },
+    deleteSkill(skill) {
+      this.skills = this.skills.filter((item) => {
+        return skill !== item
+      })
     }
   }
 }
@@ -97,5 +94,17 @@ export default {
     margin: 0 10px 0 0;
     position: relative;
     top: 2px;
+  }
+  .pill {
+    display: inline-block;
+    margin: 20px 10px 0 0;
+    padding: 6px 12px;
+    background: #eee;
+    border-radius: 20px;
+    font-size: 12px;
+    letter-spacing: 1px;
+    font-weight: bold;
+    color: #777;
+    cursor: pointer;
   }
 </style>
