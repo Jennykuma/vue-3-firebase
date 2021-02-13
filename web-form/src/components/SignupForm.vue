@@ -1,19 +1,26 @@
 <template>
   <form>
-    <label>Email:</label>
     <!-- Two way data binding - Values are bound 2-ways between the template input and the component data itself -->
     <!-- If the value updates from user input, we bind that update to the component data -->
     <!-- If the component data updates, we bind that update to the user input -->
-    
-    <!-- v-model is used to track the whatever is being typed in the input and sets it equal to whatever data (ex: email) --> 
+
+    <!-- v-model is used to track the whatever is being typed in the input and sets it equal to whatever data (ex: email) -->
+    <label>Email:</label>
     <input type="email" required v-model="email">
 
     <label>Password:</label>
     <input type="password" required v-model="password">
+
+    <label>Role:</label>
+    <select v-model="role"> <!-- v-model can be used with select fields too! -->
+      <option value="developer">Web Developer</option>
+      <option value="designer">Web Designer</option>
+    </select>
   </form>
 
   <p>Email: {{ email }}</p>
   <p>Password: {{ password }}</p>
+  <p>Role: {{ role }}</p>
 </template>
 
 <script>
@@ -21,7 +28,8 @@ export default {
   data() {
     return {
       email: '',
-      password: ''
+      password: '',
+      role: 'designer' // The inital value would be designer instead of blank
     }
   }
 }
@@ -45,7 +53,7 @@ export default {
     letter-spacing: 1px;
     font-weight: bold;
   }
-  input {
+  input, select {
     display: block;
     padding: 10px 6px;
     width: 100%;
