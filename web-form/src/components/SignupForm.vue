@@ -16,11 +16,31 @@
       <option value="developer">Web Developer</option>
       <option value="designer">Web Designer</option>
     </select>
+
+    <div class="terms">
+      <input type="checkbox" v-model="terms" required>
+      <label>Accept terms and conditions</label>
+    </div>
+
+    <div>
+      <input type="checkbox" value="Jenny" v-model="names">
+      <label>Jenny</label>
+    </div>
+        <div>
+      <input type="checkbox" value="Rilakkuma" v-model="names">
+      <label>Rilakkuma</label>
+    </div>
+        <div>
+      <input type="checkbox" value="Korilakkuma" v-model="names">
+      <label>Korilakkuma</label>
+    </div>
   </form>
 
   <p>Email: {{ email }}</p>
   <p>Password: {{ password }}</p>
   <p>Role: {{ role }}</p>
+  <p>Terms accepted: {{ terms }}</p>
+  <p>Names: {{ names }}</p>
 </template>
 
 <script>
@@ -29,7 +49,9 @@ export default {
     return {
       email: '',
       password: '',
-      role: 'designer' // The inital value would be designer instead of blank
+      role: 'designer', // The inital value would be designer instead of blank
+      terms: false,
+      names: []
     }
   }
 }
@@ -61,5 +83,12 @@ export default {
     border: none;
     border-bottom: 1px solid #ddd;
     color: #555;
+  }
+  input[type="checkbox"] {
+    display: inline-block;
+    width: 16px;
+    margin: 0 10px 0 0;
+    position: relative;
+    top: 2px;
   }
 </style>
