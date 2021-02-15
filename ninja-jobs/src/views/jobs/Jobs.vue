@@ -1,23 +1,33 @@
 <template>
   <h1>Jobs</h1>
-  <div v-for="job in jobs" :key="job.id" class="job">
-    <!-- Will link to Job Details, and pass the id param with job.id -->
-    <router-link :to="{ name: 'JobDetails', params: { id: job.id }}">
-      <h2>{{ job.title }}</h2>
-    </router-link>
+  <!-- Will only output if jobs has entries in it -->
+  <div v-if="jobs.length">
+    <div v-for="job in jobs" :key="job.id" class="job">
+      <!-- Will link to Job Details, and pass the id param with job.id -->
+      <router-link :to="{ name: 'JobDetails', params: { id: job.id }}">
+        <h2>{{ job.title }}</h2>
+      </router-link>
+    </div>
+  </div>
+  <div v-else>
+    <p>Loading jobs...</p>
   </div>
 </template>
 
 <script>
 export default {
+  // npx json-server --watch .\data\db.json
   data() {
     return {
-      jobs: [
-        { title: 'Ninja UX Designer', id: 1, details: 'lorem' },
-        { title: 'Ninja Web Developer', id: 2, details: 'lorem' },
-        { title: 'Ninja Vue Developer', id: 3, details: 'lorem' }
-      ]
+      jobs: []
     }
+  },
+  mounted() {
+    // Fetch that data for us and return it in JSON format (asynchronous + returns a promise)
+    fetch('http://localhost:3000/jobs')
+      .then((response) => response.json()) // Get JSON data (asyncronous + returns a promise)
+      .then(data => this.jobs = data) // Actual passed data (array of objects), set it to this.jobs
+      .catch(err => console.log(err.message)) // Fire if we get an error
   }
 }
 </script>
