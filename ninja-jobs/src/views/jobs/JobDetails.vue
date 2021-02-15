@@ -1,10 +1,14 @@
 <template>
-  <h1>{{ job.title }}</h1>
-
-  <!-- jobs/:id will be inside $route.params -->
-  <p>The job id is {{ id }}</p>
-
-  <p>{{ job.details }}</p>
+  <!-- job is null at first, so we won't show the job stuff until job is assigned to data -->
+  <div v-if="job">
+    <h1>{{ job.title }}</h1>
+    <!-- jobs/:id will be inside $route.params -->
+    <p>The job id is {{ id }}</p>
+    <p>{{ job.details }}</p>
+  </div>
+  <div v-else>
+    <p>Loading job details...</p>
+  </div>
 </template>
 
 <script>
@@ -16,11 +20,10 @@ export default {
     }
   },
   mounted() {
-    // Fetch that data for us and return it in JSON format (asynchronous + returns a promise)
     fetch('http://localhost:3000/jobs/' + this.id)
-      .then((response) => response.json()) // Get JSON data (asyncronous + returns a promise)
-      .then(data => this.job = data) // Actual passed data (array of objects), set it to this.jobs
-      .catch(err => console.log(err.message)) // Fire if we get an error
+      .then((response) => response.json())
+      .then(data => this.job = data)
+      .catch(err => console.log(err.message))
   }
 }
 </script>
