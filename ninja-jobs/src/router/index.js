@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
-import About from '../views/About.vue'
+// import About from '../views/About.vue'
+import NotFound from '../views/NotFound.vue'
 import Jobs from '../views/jobs/Jobs.vue'
 import JobDetails from '../views/jobs/JobDetails.vue'
 
@@ -13,7 +14,10 @@ const routes = [
   {
     path: '/about',
     name: 'About',
-    component: About
+    // Function that fires when the user visits this route
+    // Import the specific component
+    // Reduces inital loading time!
+    component: () => import('../views/About.vue')
   },
   {
     path: '/jobs',
@@ -25,6 +29,17 @@ const routes = [
     name: 'JobDetails',
     component: JobDetails,
     props: true
+  },
+  // redirect
+  {
+    path: '/all-jobs', // old path
+    redirect: '/jobs' // redirects to this path
+  },
+  // catchall 404 ----v (has to be specific like this)
+  {
+    path: '/:catchAll(.*)', // catch any route that is not caught by those listed above
+    name: 'NotFound',
+    component: NotFound
   }
 ]
 
