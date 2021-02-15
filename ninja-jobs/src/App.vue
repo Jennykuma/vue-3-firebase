@@ -6,6 +6,8 @@
 
     <!-- This notation can be handy because in the future, maybe the path attribute has to change. But the name attribute will still be the same -->
     <router-link :to="{ name: 'About' }">About</router-link>
+
+    <router-link :to="{ name: 'Jobs' }">Jobs</router-link>
   </div>
   <router-view/>
 </template>
