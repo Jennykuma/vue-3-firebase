@@ -3,16 +3,18 @@
     <!-- Will show if there are entries in projects -->
     <div v-if="projects.length">
       <div v-for="project in projects" :key="project.id">
-        <p>{{ project.title }}</p>
+        <SingleProject :project="project" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import SingleProject from '../components/SingleProject'
+
 export default {
   name: 'Home',
-  components: {},
+  components: { SingleProject },
   data() {
     return {
       projects: []
