@@ -25,6 +25,22 @@ export default {
         this.title = data.title
         this.details = data.details
       })
+  },
+  methods: {
+    handleSubmit() {
+      let project = {
+        title: this.title,
+        details: this.details
+      }
+
+      fetch(this.uri, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(project)
+      }).then(() => {
+        this.$router.push('/')
+      }).catch((err) => console.log(err))
+    }
   }
 }
 </script>
