@@ -3,7 +3,7 @@
     <!-- Will show if there are entries in projects -->
     <div v-if="projects.length">
       <div v-for="project in projects" :key="project.id">
-        <SingleProject :project="project" />
+        <SingleProject :project="project" @delete="handleDelete"  @complete="handleComplete" />
       </div>
     </div>
   </div>
@@ -25,6 +25,21 @@ export default {
       .then(res => res.json())
       .then(data => this.projects = data)
       .catch(err => console.log(err))
+  },
+  methods: {
+    handleDelete(id) {
+      // Take out the deleted project from our data
+      this.projects = this.projects.filter((project) => {
+        return project.id !== id
+      })
+    },
+    handleComplete(id) {
+      // Update the local data of the chosen project
+      let p = this.projects.find(project => {
+        return project.id === id
+      })
+      p.complete = !p.complete
+    }
   }
 }
 </script>
