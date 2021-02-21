@@ -19,8 +19,21 @@ export default {
     }
   },
   methods: {
+    // We don't need to add an id because JSON server will handle that and add a unique id for us
     handleSubmit() {
-      console.log(this.title, this.details)
+      let project = {
+        title: this.title,
+        details: this.details,
+        complete: false
+      }
+
+      fetch('http://localhost:3000/projects', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(project)
+      }).then(() => {
+        this.$router.push('/') // push another route into the history (home)
+      }).catch((err) => console.log(err))
     }
   }
 }
