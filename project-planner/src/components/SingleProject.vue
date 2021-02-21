@@ -4,7 +4,7 @@
       <h3 @click="toggleDetails">{{ project.title }}</h3>
       <div class="icons">
         <span class="material-icons">edit</span>
-        <span class="material-icons">delete</span>
+        <span @click="deleteProject" class="material-icons">delete</span>
         <span class="material-icons">done</span>
       </div>
     </div>
@@ -19,12 +19,20 @@ export default {
   props: ['project'],
   data() {
     return {
-      showDetails: false
+      showDetails: false,
+      uri: 'http://localhost:3000/projects/' + this.project.id // store the endpoint of the project for reuse 
     }
   },
   methods: {
     toggleDetails() {
       this.showDetails = !this.showDetails
+    },
+    deleteProject() {
+      // Makes a delete request to the JSON server
+      // Looks for the project with this id inside our projects resource and delete it
+      fetch(this.uri, { method: 'DELETE' })
+        .then(() => this.$emit('delete', this.project.id))
+        .catch(err => console.log(err))
     }
   }
 }
