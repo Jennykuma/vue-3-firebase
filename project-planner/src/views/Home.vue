@@ -1,5 +1,7 @@
 <template>
   <div class="home">
+    <!-- $event is the data we send up -->
+    <filterNav @filterChange="current = $event" :current="current"/>
     <!-- Will show if there are entries in projects -->
     <div v-if="projects.length">
       <div v-for="project in projects" :key="project.id">
@@ -11,13 +13,15 @@
 
 <script>
 import SingleProject from '../components/SingleProject'
+import FilterNav from '../components/FilterNav'
 
 export default {
   name: 'Home',
-  components: { SingleProject },
+  components: { SingleProject, FilterNav },
   data() {
     return {
-      projects: []
+      projects: [],
+      current: 'all'
     }
   },
   mounted() {
