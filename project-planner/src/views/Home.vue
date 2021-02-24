@@ -4,7 +4,8 @@
     <filterNav @filterChange="current = $event" :current="current"/>
     <!-- Will show if there are entries in projects -->
     <div v-if="projects.length">
-      <div v-for="project in projects" :key="project.id">
+      <!-- filteredProjects is a computed method that filters the projects to display -->
+      <div v-for="project in filteredProjects" :key="project.id">
         <SingleProject :project="project" @delete="handleDelete"  @complete="handleComplete" />
       </div>
     </div>
@@ -22,6 +23,16 @@ export default {
     return {
       projects: [],
       current: 'all'
+    }
+  },
+  computed: {
+    filteredProjects() {
+      if (this.current === 'completed')
+        return this.projects.filter((project) => project.complete)
+      if (this.current === 'ongoing')
+        return this.projects.filter((project) => !project.complete)
+      
+      return this.projects
     }
   },
   mounted() {
