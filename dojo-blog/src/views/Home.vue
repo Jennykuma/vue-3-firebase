@@ -1,33 +1,39 @@
 <template>
   <div class="home">
-    Home
-    <p ref="p">My name is {{ name }} and my age is {{ age }}</p>
-    <button @click="handleClick">click me</button>
-    <button @click="age++">add 1 to age</button>
-    <input type="text" v-model="name">
+    <h1>Home</h1>
+    <h2>Refs</h2>
+    <p>{{ ninjaOne.name }} - {{ ninjaOne.age }}</p>
+    <button @click="updateNinjaOne">Update ninja one</button>
+
+    <h2>Reactive</h2>
+    <p>{{ ninjaTwo.name }} - {{ ninjaTwo.age }}</p>
+    <button @click="updateNinjaTwo">Update ninja two</button>
   </div>
 </template>
 
 <script>
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
 
 export default {
   name: 'Home',
   setup() {
-    const p = ref(null)
 
-    // Just because these are constants doesn't mean the values can't change
-    // It means the reference object is a constant, but the v alue inside can change
-    // Access the value ex: name.value, age.value
-    const name = ref('mario')
-    const age = ref(30)
+    // Drawbacks to using reactive
+    // 1. Can't use primitive values inside reactive (ex: const nameOne = reactive('mario'))
+    // 2. Refs work better when creating external composition functions later on because they retrain their reactivity when exposed by these external functions
 
-    const handleClick = () => {
-      name.value = 'luigi'
-      age.value = 35
+    const ninjaOne = ref({ name: 'mario', age: 30 })
+    const ninjaTwo = reactive({ name: 'luigi', age: 35 })
+
+    const updateNinjaOne = () => {
+      ninjaOne.value.age = 40 // Need to access age using value first
     }
 
-    return { name, age, handleClick, p }
+    const updateNinjaTwo = () => {
+      ninjaTwo.age = 45 // Don't need to use value to access age
+    }
+
+    return { ninjaOne, updateNinjaOne, ninjaTwo, updateNinjaTwo }
   }
 }
 </script>
