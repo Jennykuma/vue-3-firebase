@@ -1,39 +1,26 @@
 <template>
   <div class="home">
     <h1>Home</h1>
-    <h2>Refs</h2>
-    <p>{{ ninjaOne.name }} - {{ ninjaOne.age }}</p>
-    <button @click="updateNinjaOne">Update ninja one</button>
-
-    <h2>Reactive</h2>
-    <p>{{ ninjaTwo.name }} - {{ ninjaTwo.age }}</p>
-    <button @click="updateNinjaTwo">Update ninja two</button>
+    <input type="text" v-model="search">
+    <p>search term - {{ search }}</p>
+    <div v-for="name in matchingNames" :key="name">{{ name }}</div>
   </div>
 </template>
 
 <script>
-import { ref, reactive } from 'vue'
+import { ref, computed } from 'vue'
 
 export default {
   name: 'Home',
   setup() {
+    const search = ref('')
+    const names = ref(['mario', 'yoshi', 'luigi', 'toad', 'bowser', 'koopa', 'peach'])
 
-    // Drawbacks to using reactive
-    // 1. Can't use primitive values inside reactive (ex: const nameOne = reactive('mario'))
-    // 2. Refs work better when creating external composition functions later on because they retrain their reactivity when exposed by these external functions
-
-    const ninjaOne = ref({ name: 'mario', age: 30 })
-    const ninjaTwo = reactive({ name: 'luigi', age: 35 })
-
-    const updateNinjaOne = () => {
-      ninjaOne.value.age = 40 // Need to access age using value first
-    }
-
-    const updateNinjaTwo = () => {
-      ninjaTwo.age = 45 // Don't need to use value to access age
-    }
-
-    return { ninjaOne, updateNinjaOne, ninjaTwo, updateNinjaTwo }
+    const matchingNames = computed(() => {
+      return names.value.filter((name) => name.includes(search.value)) // Return an updated names value based on the search value
+    })
+  
+    return { names, search, matchingNames }
   }
 }
 </script>
