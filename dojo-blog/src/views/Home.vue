@@ -1,9 +1,11 @@
 <template>
   <div class="home">
     <h1>Home</h1>
-    <PostList v-if="showPosts" :posts="posts" />
-    <button @click="showPosts = !showPosts">toggle posts</button>
-    <button @click="posts.pop()">delete a post</button>
+    <div v-if="error">{{ error }}</div>
+    <div v-if="posts.length">
+      <PostList :posts="posts" />
+    </div>
+    <div v-else>Loading...</div>
   </div>
 </template>
 
@@ -15,14 +17,35 @@ export default {
   name: 'Home',
   components: { PostList },
   setup() {
-    const posts = ref([
-      { title: 'welcome to the blog', body: 'Lorem ipsum', id: 1 },
-      { title: 'top 5 CSS tips', body: 'lorem ipsum', id: 2}
-    ])
+    const posts = ref([])
+    const error = ref(null)
 
-    const showPosts = ref(true)
+    // Async function to get the data
+    const load = async () => {
+      try {
+        // Before going down to the next line, it will wait for the fetch to be complete
+        // Once complete, the respons will be stored in data
+        let data =  await fetch('http://localhost:3000/posts')
+        
+        // If data is not ok
+        if (!data.ok) {
+          throw Error('no data available')
+        }
+
+        // Take the data response and use JSON on it
+        // Asynchronous, returns a promise. Once it's done, the value will be in posts.value
+        posts.value = await data.json()
+      
+      }
+      catch (err) {
+        error.value = err.message
+        console.log(error.value)
+      }
+    }
+
+    load()
   
-    return { posts, showPosts }
+    return { posts, error }
   }
 }
 </script>
