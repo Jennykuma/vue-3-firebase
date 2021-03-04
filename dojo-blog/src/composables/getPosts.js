@@ -27,7 +27,6 @@ const getPosts = () => {
       console.log(error.value)
     }
   }
-
   return { posts, error, load }
 }
 
