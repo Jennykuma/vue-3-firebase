@@ -8,6 +8,13 @@ const getPosts = () => {
   // Async function to get the data
   const load = async () => {
     try {
+      // simulate delay
+      // New promise will be resolved or rejected at some point
+      // Until it is resolved/rejected, we wait for it 
+      await new Promise(resolve => {
+        setTimeout(resolve, 2000) // Wait 2000ms then call the resolve function
+      })
+
       // Before going down to the next line, it will wait for the fetch to be complete
       // Once complete, the respons will be stored in data
       let data =  await fetch('http://localhost:3000/posts')
