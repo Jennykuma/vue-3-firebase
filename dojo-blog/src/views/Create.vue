@@ -50,9 +50,7 @@ export default {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(post)
-      }).then(() => {
-        this.$router.push('/')
-      }).catch((err) => console.log(err))
+      })
     }
     
     return { title, body, tag, tags, handleKeydown, handleSubmit }
