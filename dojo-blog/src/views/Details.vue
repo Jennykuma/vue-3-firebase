@@ -12,12 +12,17 @@
 <script>
 import getPost from '../composables/getPost'
 import Spinner from '../components/Spinner'
+import { useRoute } from 'vue-router'
 
 export default {
   props: ['id'],
   components: { Spinner },
   setup(props) {
-    const { post, error, load } = getPost(props.id)
+    // This gets us info about the current root that we're on
+    const route = useRoute()
+
+    // route.params.id over props.id sometimes because props might not always have an id
+    const { post, error, load } = getPost(route.params.id)
 
     load()
 

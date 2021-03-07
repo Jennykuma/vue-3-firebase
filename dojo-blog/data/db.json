@@ -36,6 +36,16 @@
         "ghjghj"
       ],
       "id": 5
+    },
+    {
+      "title": "helo test",
+      "body": "helo test content",
+      "tags": [
+        "test-tag",
+        "weoweo",
+        "hehe"
+      ],
+      "id": 6
     }
   ]
 }
