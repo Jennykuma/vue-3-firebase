@@ -21,6 +21,7 @@
 
 <script>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 export default {
   setup() {
@@ -28,6 +29,12 @@ export default {
     const body = ref('')
     const tag = ref('')
     const tags = ref([])
+
+    // Returns us an instance of the router
+    const router = useRouter()
+    
+    // router.go(1) -> forward
+    // router.go(-1) -> backward
 
     const handleKeydown = () => {
       if (!tags.value.includes(tag.value)) {
@@ -51,6 +58,9 @@ export default {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(post)
       })
+
+      // Redirect home after creating a post
+      router.push({ name: 'Home' })
     }
     
     return { title, body, tag, tags, handleKeydown, handleSubmit }
