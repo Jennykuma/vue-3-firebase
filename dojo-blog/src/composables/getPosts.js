@@ -1,4 +1,5 @@
 import { ref } from 'vue'
+import { projectFirestore } from '../firebase/config'
 
 // Title of file should match the method
 const getPosts = () => {
@@ -8,26 +9,12 @@ const getPosts = () => {
   // Async function to get the data
   const load = async () => {
     try {
-      // simulate delay
-      // New promise will be resolved or rejected at some point
-      // Until it is resolved/rejected, we wait for it 
-      await new Promise(resolve => {
-        setTimeout(resolve, 2000) // Wait 2000ms then call the resolve function
-      })
-
-      // Before going down to the next line, it will wait for the fetch to be complete
-      // Once complete, the respons will be stored in data
-      let data =  await fetch('http://localhost:3000/posts')
+      // wait for it to finish and then store the response in res
+      const res = await projectFirestore.collection('posts').get() // creates connection to the posts collection and grabs
       
-      // If data is not ok
-      if (!data.ok) {
-        throw Error('no data available')
-      }
-
-      // Take the data response and use JSON on it
-      // Asynchronous, returns a promise. Once it's done, the value will be in posts.value
-      posts.value = await data.json()
-    
+      posts.value = res.docs.map(doc => {
+        return { ...doc.data(), id: doc.id }
+      })
     }
     catch (err) {
       error.value = err.message
