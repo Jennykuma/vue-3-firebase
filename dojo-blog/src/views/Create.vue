@@ -22,6 +22,7 @@
 <script>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { projectFirestore } from '../firebase/config'
 
 export default {
   setup() {
@@ -52,12 +53,8 @@ export default {
         tags: tags.value
       }
 
-      // Asynchronous fetch 
-      await fetch('http://localhost:3000/posts', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(post)
-      })
+      // Creates a new document and adds it to the posts collection
+      const res = await projectFirestore.collection('posts').add(post)
 
       // Redirect home after creating a post
       router.push({ name: 'Home' })
