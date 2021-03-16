@@ -15,5 +15,6 @@ firebase.initializeApp(firebaseConfig) // uses config to initialize connection t
 
 // init firestore service
 const projectFirestore = firebase.firestore() // sets up connection to firestore
+const timestamp = firebase.firestore.FieldValue.serverTimestamp
 
-export { projectFirestore }
+export { projectFirestore, timestamp }
