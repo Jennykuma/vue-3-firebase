@@ -10,7 +10,9 @@ const getPosts = () => {
   const load = async () => {
     try {
       // wait for it to finish and then store the response in res
-      const res = await projectFirestore.collection('posts').get() // creates connection to the posts collection and grabs
+      const res = await projectFirestore.collection('posts')
+        .orderBy('createdAt', 'desc') // desc - newest will go first
+        .get() // creates connection to the posts collection and grabs
       
       posts.value = res.docs.map(doc => {
         return { ...doc.data(), id: doc.id }
