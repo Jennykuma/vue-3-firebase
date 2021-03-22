@@ -11,7 +11,7 @@ export default {
 </script>
 
 <style>
-  .welcone {
+  .welcome {
     text-align: center;
     padding: 20px 0;
   }
