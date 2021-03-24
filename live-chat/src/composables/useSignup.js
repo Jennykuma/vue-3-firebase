@@ -17,7 +17,6 @@ const signup = async (email, password, displayName) => {
 
     console.log(res.user)
     return res
-
   } catch(err) {
     console.log(err.message)
     error.value = err.message
@@ -26,7 +25,6 @@ const signup = async (email, password, displayName) => {
 
 const useSignup = () => {
   return { error, signup }
-
 }
 
 export default useSignup
