@@ -1,3 +1,5 @@
+// use collection - add stuff do stuff with it
+
 import { ref } from 'vue'
 import { projectFirestore } from '../firebase/config'
 
