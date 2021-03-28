@@ -1,6 +1,6 @@
 // get collection - get stuff from the collection
 
-import { ref } from 'vue'
+import { ref, watchEffect } from 'vue'
 import { projectFirestore } from '../firebase/config'
 
 const getCollection = (collection) => {
@@ -12,7 +12,8 @@ const getCollection = (collection) => {
     .orderBy('createdAt')
     
   // snapshot contains all the docs and data of those docs at the moment in time
-  collectionRef.onSnapshot((snap) => { // first callback is if we get a correct snapshot
+  const unsub = collectionRef.onSnapshot((snap) => { // first callback is if we get a correct snapshot
+    console.log(snap)
     let results = []
     snap.docs.forEach(doc => {
       // doc.data contains message, name, createdAt
@@ -24,6 +25,14 @@ const getCollection = (collection) => {
     console.log(err.message)
     documents.value = null
     error.value = "could not fetch data"
+  })
+
+  // fires whenever properties change
+  // onInvalidate function runs whenever whatever component we're using this mounts
+  watchEffect((onInvalidate) => {
+    // unsub from previous collection when watcher is stopped (component unmounted)
+    // ex: when we leave the chatroom
+    onInvalidate(() => unsub())
   })
 
   return { documents, error }
