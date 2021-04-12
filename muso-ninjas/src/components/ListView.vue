@@ -7,7 +7,7 @@
         </div>
         <div class="info">
           <h3>{{ playlist.title }}</h3>
-          <p>Created by {{ playlist.username }}</p>
+          <p>Created by {{ playlist.userName }}</p>
         </div>
         <div class="song-number">
           <p>{{ playlist.songs.length }}</p>
