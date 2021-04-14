@@ -5,7 +5,7 @@ service cloud.firestore {
       allow read, create: if request.auth != null;
       // resource is the item we're trying to use 
       // request is the user who's making the request 
-      allow delete, update: if request.auth.uid == resource.data.userId
+      allow delete, update: if request.auth.uid == resource.data.userId;
     }
   }
 }
