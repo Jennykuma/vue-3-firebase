@@ -20,7 +20,7 @@
           <h3>{{ song.title }}</h3>
           <p>{{ song.artist }}</p>
         </div>
-        <button v-if="ownership">delete</button>
+        <button v-if="ownership" @click="handleClick(song.id)">delete</button>
       </div>
       <AddSong v-if="ownership" :playlist="playlist" />
     </div>
@@ -45,7 +45,7 @@ export default {
     // get document from getDocument() but call it playlist
     const { error, document: playlist } = getDocument('playlists', props.id)
     const { user } = getUser()
-    const { deleteDoc } = useDocument('playlists', props.id)
+    const { deleteDoc, updateDoc } = useDocument('playlists', props.id)
     const { deleteImage } = useStorage()
     const router = useRouter()
 
@@ -59,7 +59,12 @@ export default {
       router.push({ name: 'Home' })
     }
 
-    return { error, playlist, ownership, handleDelete }
+    const handleClick = async (id) => {
+      const songs = playlist.value.songs.filter((song) => song.id != id)
+      await updateDoc({ songs })
+    }
+
+    return { error, playlist, ownership, handleDelete, handleClick }
   }
 }
 </script>
